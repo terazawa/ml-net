@@ -1,4 +1,6 @@
 ﻿using System;
+using SampleBinaryClassification.Model.DataModels;
+using Microsoft.ML;
 
 namespace consumeModelApp
 {
@@ -6,7 +8,18 @@ namespace consumeModelApp
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            ConsumeModel();
+        }
+
+        public static void ConsumeModel()
+        {
+            MLContext mlContext = new MLContext();
+            ITransformer mlModel = mlContext.Model.Load("../SampleBinaryClassification/SampleBinaryClassification.Model/MLModel.zip", out var modelInputSchema);
+            var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
+            var input = new ModelInput();
+            input.SentimentText = "That is rude";
+            ModelOutput result = predEngine.Predict(input);
+            Console.WriteLine($"Text: {input.SentimentText} | Prediction: {(result.Prediction ? "Toxic" : "Non-toxic")} sentiment");
         }
     }
 }
