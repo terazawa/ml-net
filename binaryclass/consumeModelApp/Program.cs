@@ -17,6 +17,7 @@ namespace consumeModelApp
             ITransformer mlModel = mlContext.Model.Load("../SampleBinaryClassification/SampleBinaryClassification.Model/MLModel.zip", out var modelInputSchema);
             var predEngine = mlContext.Model.CreatePredictionEngine<ModelInput, ModelOutput>(mlModel);
             var input = new ModelInput();
+            Console.WriteLine("Enter your comments");
             //input.SentimentText = "That is rude";
             input.SentimentText = Console.ReadLine();
             ModelOutput result = predEngine.Predict(input);
