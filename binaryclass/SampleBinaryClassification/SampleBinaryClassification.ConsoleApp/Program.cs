@@ -19,7 +19,7 @@ namespace SampleBinaryClassification.ConsoleApp
         private const string MODEL_FILEPATH = @"MLModel.zip";
 
         //Dataset to use for predictions 
-        private const string DATA_FILEPATH = @"/Users/keiji/repos/ml-net/wikipedia-detox-250-line-data.tsv";
+        private const string DATA_FILEPATH = @"/Users/keiji/repos/ml-net/binaryclass/wikipedia-detox-250-line-data.tsv";
 
         static void Main(string[] args)
         {

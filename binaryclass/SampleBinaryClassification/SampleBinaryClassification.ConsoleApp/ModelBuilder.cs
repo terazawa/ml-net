@@ -17,7 +17,7 @@ namespace SampleBinaryClassification.ConsoleApp
 {
     public static class ModelBuilder
     {
-        private static string TRAIN_DATA_FILEPATH = @"/Users/keiji/repos/ml-net/wikipedia-detox-250-line-data.tsv";
+        private static string TRAIN_DATA_FILEPATH = @"/Users/keiji/repos/ml-net/binaryclass/wikipedia-detox-250-line-data.tsv";
         private static string MODEL_FILEPATH = @"../../../../SampleBinaryClassification.Model/MLModel.zip";
 
         // Create MLContext to be shared across the model creation workflow objects 
@@ -56,7 +56,7 @@ namespace SampleBinaryClassification.ConsoleApp
                                       .AppendCacheCheckpoint(mlContext);
 
             // Set the training algorithm 
-            var trainer = mlContext.BinaryClassification.Trainers.SgdCalibrated(new SgdCalibratedTrainer.Options() { L2Regularization = 1E-06f, ConvergenceTolerance = 1E-05f, NumberOfIterations = 20, Shuffle = false, LabelColumnName = "Sentiment", FeatureColumnName = "Features" });
+            var trainer = mlContext.BinaryClassification.Trainers.LbfgsLogisticRegression(new LbfgsLogisticRegressionBinaryTrainer.Options() { L2Regularization = 0.9264836f, L1Regularization = 0.1886002f, OptimizationTolerance = 1E-07f, HistorySize = 20, MaximumNumberOfIterations = 1149916419, InitialWeightsDiameter = 0.6599894f, DenseOptimizer = true, LabelColumnName = "Sentiment", FeatureColumnName = "Features" });
             var trainingPipeline = dataProcessPipeline.Append(trainer);
 
             return trainingPipeline;
