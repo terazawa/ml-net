@@ -11,7 +11,6 @@ using System.Linq;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using SampleBinaryClassification.Model.DataModels;
-using Microsoft.ML.Trainers;
 
 namespace SampleBinaryClassification.ConsoleApp
 {
@@ -56,7 +55,7 @@ namespace SampleBinaryClassification.ConsoleApp
                                       .AppendCacheCheckpoint(mlContext);
 
             // Set the training algorithm 
-            var trainer = mlContext.BinaryClassification.Trainers.LbfgsLogisticRegression(new LbfgsLogisticRegressionBinaryTrainer.Options() { L2Regularization = 0.9264836f, L1Regularization = 0.1886002f, OptimizationTolerance = 1E-07f, HistorySize = 20, MaximumNumberOfIterations = 1149916419, InitialWeightsDiameter = 0.6599894f, DenseOptimizer = true, LabelColumnName = "Sentiment", FeatureColumnName = "Features" });
+            var trainer = mlContext.BinaryClassification.Trainers.SgdCalibrated(labelColumnName: "Sentiment", featureColumnName: "Features");
             var trainingPipeline = dataProcessPipeline.Append(trainer);
 
             return trainingPipeline;
